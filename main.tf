@@ -8,8 +8,13 @@ resource "time_sleep" "wait_15_seconds" {
 
 resource "aws_api_gateway_domain_name" "domain_name" {
   domain_name = "${var.sub_domain}.${var.root_domain}"
-  
-  certificate_arn = aws_acm_certificate.cert.arn
+  regional_certificate_arn = aws_acm_certificate.cert.arn
+
+  endpoint_configuration {
+    types = ["REGIONAL"]
+  }
+
+
   depends_on = [
     time_sleep.wait_15_seconds
   ]
