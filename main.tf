@@ -1,8 +1,18 @@
 # The domain name to use with api-gateway
+
+
+resource "time_sleep" "wait_15_seconds" {
+  create_duration = "15s"
+}
+
+
 resource "aws_api_gateway_domain_name" "domain_name" {
   domain_name = "${var.sub_domain}.${var.root_domain}"
-
+  
   certificate_arn = aws_acm_certificate.cert.arn
+  depends_on = [
+    time_sleep.wait_15_seconds
+  ]
 }
 
 resource "aws_route53_record" "sub_domain" {
