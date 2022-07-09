@@ -20,11 +20,18 @@ resource "aws_api_gateway_domain_name" "domain_name" {
   ]
 }
 
-resource "aws_route53_record" "sub_domain" {
+resource "aws_route53_record" "www-dev" {
+  zone_id = var.zone_id
   name    = var.sub_domain
   type    = "CNAME"
-  value   = aws_api_gateway_domain_name.domain_name.regional_domain_name 
-  zone_id = var.zone_id
+  ttl     = "60"
+
+  weighted_routing_policy {
+    weight = 10
+  }
+
+  set_identifier = "api"
+  records        = [aws_api_gateway_domain_name.domain_name.regional_domain_name]
 }
 
 resource "aws_acm_certificate" "cert" {
