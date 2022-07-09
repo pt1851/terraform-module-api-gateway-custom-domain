@@ -16,7 +16,7 @@ resource "aws_api_gateway_domain_name" "domain_name" {
 
 
   depends_on = [
-    time_sleep.wait_15_seconds
+    time_sleep.wait_60_seconds
   ]
 }
 
