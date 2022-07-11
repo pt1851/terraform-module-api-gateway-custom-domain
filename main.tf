@@ -1,9 +1,9 @@
 # The domain name to use with api-gateway
 
 
-resource "time_sleep" "wait_60_seconds" {
-  create_duration = "60s"
-}
+# resource "time_sleep" "wait_60_seconds" {
+#   create_duration = "60s"
+# }
 
 
 resource "aws_api_gateway_domain_name" "domain_name" {
@@ -16,7 +16,7 @@ resource "aws_api_gateway_domain_name" "domain_name" {
 
 
   depends_on = [
-    time_sleep.wait_60_seconds
+    aws_acm_certificate_validation.cert
   ]
 }
 
